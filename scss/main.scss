@@ -1,0 +1,148 @@
+@import '_color', '_mixin', '_sticky';
+
+// reset
+*, *::before, *::after {box-sizing: border-box;margin: 0;}
+html, body {height: 100%;}
+html{font-family: 'Noto Sans KR', sans-serif;font-size: 14px;}
+body {line-height: 1.6;-webkit-font-smoothing: antialiased;overflow-x: hidden;color: $black;letter-spacing: -0.05em;}
+img, picture, video, canvas, svg {display: block;max-width: 100%;}
+input, button, textarea, select {font: inherit;}
+p, h1, h2, h3, h4, h5, h6 {overflow-wrap: break-word;}
+a{color: inherit;text-decoration: none;}
+#root, #__next {isolation: isolate;}
+
+// header
+.global-nav{
+    height: 44px;
+    .global-nav-links{
+        @include nav_layout;
+    }
+}
+
+.local-nav{
+    height: 52px;
+    border-bottom: 1px solid #ddd;
+    .local-nav-links{
+        @include nav_layout;
+        .product-name{
+            margin-right: auto;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        a:not(.product-name){
+            margin-left: 2em;
+            font-size: 0.8rem;
+        }
+    } 
+}
+
+h1{
+    font-size: 4rem;
+    text-align: center;
+}
+h2{
+    font-weight: 600;
+    font-size: inherit;
+    text-align: center;
+    line-height: 1.2;
+    small{
+        display: block;
+        margin-bottom: 0.5em;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }  
+}
+h3{
+    @include con_layout;
+    font-size: 2rem;
+    color: $gray;
+    strong{
+        color: $black;
+    }
+}
+
+
+.scroll-section{
+    padding-top: 50vh;
+    .main-message{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3em;
+        font-size: 2.5rem;
+        /* &.a{}
+        &.b{}
+        &.c{}
+        &.d{} */
+    }
+    .desc-message{
+        width: 50%;
+        font-weight: 500;
+        .pin{
+            width: 1px;
+            height: 100px;
+            background: $black;
+        }
+    }
+    .description{
+        @include con_layout;
+        font-size: 1.2rem;
+        color: $gray;
+        strong{
+            float: left;
+            margin-right: 0.2em;
+            font-size: 3rem;
+            color: $black;
+        }
+    }
+    // .image-blend-canvas{}
+    .canvas-caption{
+        @include con_layout;
+        font-size: 1.2rem;
+        color: $gray;
+    }
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7rem;
+    background: darkorange;
+}
+
+@media (min-width:1024px) {
+    h1{
+        font-size: 9vw;
+    }
+    h2{
+        small{
+            font-size: 1.5vw;
+        }  
+    }
+    h3{
+        font-size: 4vw;
+        // strong{}
+    }
+
+    .scroll-section{
+        &.main-message{
+            font-size: 4vw;
+        }
+        &.desc-message{
+            width: 20%;
+        }
+        .description{
+            font-size: 2rem;
+            strong{
+                font-size: 6rem;
+            }
+        }
+        .canvas-caption{
+            font-size: 2rem;
+        }
+    }
+
+
+    // footer{}
+}
