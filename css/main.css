@@ -1,19 +1,19 @@
+.scroll-section {
+  border: 3px solid red;
+}
+.scroll-section .sticky-elem {
+  display: none;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
 #show-scene-0 #scroll-section-0 .sticky-elem,
 #show-scene-1 #scroll-section-1 .sticky-elem,
 #show-scene-2 #scroll-section-2 .sticky-elem,
 #show-scene-3 #scroll-section-3 .sticky-elem {
   display: block;
-}
-
-.sticky-elem {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: auto;
-  /*         &.sticky-elem-canvas{
-      canvas{}
-  } */
 }
 
 *, *::before, *::after {
@@ -61,10 +61,20 @@ a {
   isolation: isolate;
 }
 
-.global-nav {
+.loading {
+  display: none;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+header .global-nav {
   height: 44px;
 }
-.global-nav .global-nav-links {
+header .global-nav .global-nav-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,12 +89,11 @@ a {
   margin: 0 auto;
   padding: 0 1rem;
 }
-
-.local-nav {
+header .local-nav {
   height: 52px;
   border-bottom: 1px solid #ddd;
 }
-.local-nav .local-nav-links {
+header .local-nav .local-nav-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -99,12 +108,12 @@ a {
   margin: 0 auto;
   padding: 0 1rem;
 }
-.local-nav .local-nav-links .product-name {
+header .local-nav .local-nav-links .product-name {
   margin-right: auto;
   font-size: 1.2rem;
   font-weight: 600;
 }
-.local-nav .local-nav-links a:not(.product-name) {
+header .local-nav .local-nav-links a:not(.product-name) {
   margin-left: 2em;
   font-size: 0.8rem;
 }
@@ -153,10 +162,6 @@ h3 strong {
           justify-content: center;
   height: 3em;
   font-size: 2.5rem;
-  /* &.a{}
-  &.b{}
-  &.c{}
-  &.d{} */
 }
 .scroll-section .desc-message {
   width: 50%;
