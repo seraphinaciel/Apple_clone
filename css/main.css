@@ -160,6 +160,7 @@ h3 strong {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  top: 35vh;
   height: 3em;
   font-size: 2.5rem;
 }
