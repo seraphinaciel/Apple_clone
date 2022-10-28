@@ -20,6 +20,7 @@ header{
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 999;
     .global-nav{
         height: 44px;
         .global-nav-links{
@@ -48,6 +49,7 @@ header{
 h1{
     font-size: 4rem;
     text-align: center;
+    margin-top: -10vh;
 }
 h2{
     font-weight: 600;
@@ -84,6 +86,7 @@ h3{
     .desc-message{
         width: 50%;
         font-weight: 500;
+        opacity: 0;
         .pin{
             width: 1px;
             height: 100px;

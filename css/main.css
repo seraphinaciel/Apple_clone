@@ -6,7 +6,16 @@
   position: fixed;
   left: 0;
   width: 100%;
-  opacity: 0;
+}
+.scroll-section .sticky-elem.sticky-elem-canvas {
+  top: 0;
+  height: 100%;
+  z-index: -1;
+}
+.scroll-section .sticky-elem.sticky-elem-canvas canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 #show-scene-0 #scroll-section-0 .sticky-elem,
@@ -70,6 +79,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 999;
 }
 header .global-nav {
   height: 44px;
@@ -121,6 +131,7 @@ header .local-nav .local-nav-links a:not(.product-name) {
 h1 {
   font-size: 4rem;
   text-align: center;
+  margin-top: -10vh;
 }
 
 h2 {
@@ -167,6 +178,7 @@ h3 strong {
 .scroll-section .desc-message {
   width: 50%;
   font-weight: 500;
+  opacity: 0;
 }
 .scroll-section .desc-message .pin {
   width: 1px;
