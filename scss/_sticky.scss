@@ -1,15 +1,15 @@
 .scroll-section{
   border: 3px solid red;
   .sticky-elem{        
-      display: none;
+      // display: none;
       position: fixed;
       left: 0;
       width: 100%;
-      // opacity: 0;
+      opacity: 0;
       &.sticky-elem-canvas{
         top:0;
         height: 100%;
-        // opacity: 1;
+        opacity: 1;
         z-index: -1;
         canvas {
           position: absolute;

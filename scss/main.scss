@@ -5,7 +5,7 @@
 html, body {height: 100%;}
 html{font-family: 'Noto Sans KR', sans-serif;font-size: 14px;}
 body {line-height: 1.6;-webkit-font-smoothing: antialiased;overflow-x: hidden;color: $black;letter-spacing: -0.05em;}
-img, picture, video, canvas, svg {display: block;max-width: 100%;}
+img, picture, video {display: block;max-width: 100%;}
 input, button, textarea, select {font: inherit;}
 p, h1, h2, h3, h4, h5, h6 {overflow-wrap: break-word;}
 a{color: inherit;text-decoration: none;}
@@ -86,7 +86,8 @@ h3{
     .desc-message{
         width: 50%;
         font-weight: 500;
-        opacity: 0;
+        top: 35vh;
+        left: 50%;
         .pin{
             width: 1px;
             height: 100px;
