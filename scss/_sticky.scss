@@ -1,15 +1,31 @@
+body{
+  &.local-nav-sticky .local-nav {
+    position: fixed;
+    top: 0;
+    background: rgba(255, 255, 255, 0.1);
+    /* for iPhone */
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+    -moz-backdrop-filter: saturate(180%) blur(15px);
+    -o-backdrop-filter: saturate(180%) blur(15px);
+    backdrop-filter: saturate(180%) blur(15px);
+  }
+  &.scroll-effect-end .sticky-elem {
+    /* 스크롤 효과가 모두 끝나고, 아래 일반 콘텐츠 영역에서는 sticky-elem들을 모두 안보이도록 */
+    display: none !important;
+  }
+}
+
 .scroll-section{
-  border: 3px solid red;
-  .sticky-elem{        
-      // display: none;
+  position: relative;
+  border: 13px solid red;
+  div{
+      display: none;
       position: fixed;
       left: 0;
       width: 100%;
-      opacity: 0;
-      &.sticky-elem-canvas{
+      &.sticky-canvas{
         top:0;
         height: 100%;
-        opacity: 1;
         z-index: -1;
         canvas {
           position: absolute;
@@ -18,10 +34,22 @@
         }
       }
   }
+  .image-blend-canvas.sticky{
+    position: fixed;
+    top: 0;
+	  z-index: 10;
+  }
 }
-#show-scene-0 #scroll-section-0 .sticky-elem,
-#show-scene-1 #scroll-section-1 .sticky-elem,
-#show-scene-2 #scroll-section-2 .sticky-elem,
-#show-scene-3 #scroll-section-3 .sticky-elem{
+#show-scene-0 #scroll-section-0 div,
+#show-scene-1 #scroll-section-1 div,
+#show-scene-2 #scroll-section-2 div,
+#show-scene-3 #scroll-section-3 div {
     display: block;
+    will-change: transform, opacity;
+    /* 
+    브라우저한테 transform, opacity 변경 할 거라고 미리 알랴쥼(HINT)
+    너무 많은 요소에 주는 건 비추(아껴사용하거라, 성능개선 최후의 수단 - 과도한 메모리 사용)
+    스크립트 조작이 더 좋다고 함
+     */
 }
+

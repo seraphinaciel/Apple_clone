@@ -11,31 +11,81 @@ p, h1, h2, h3, h4, h5, h6 {overflow-wrap: break-word;}
 a{color: inherit;text-decoration: none;}
 #root, #__next {isolation: isolate;}
 
-.loading{
-    display: none;
+
+
+.before-load {
+	overflow: hidden;
+    .loading {
+        opacity: 1;
+    }
+    main{
+        display: none;
+    }
 }
+@keyframes loading-spin {
+	100% { transform: rotate(360deg); }
+}
+@keyframes loading-circle-ani {
+	0% { stroke-dashoffset: 157; }
+	75% { stroke-dashoffset: -147; }
+	100% { stroke-dashoffset: -157; }
+}
+
+.loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	background: white;
+	opacity: 0;
+	transition: 0.5s;
+    .loading-circle {
+        width: 54px;
+        height: 54px;
+        animation: loading-spin 3s infinite;
+        circle {
+            stroke: black;
+            stroke-width: 4;
+            /* js로 getTotalLength()로 stroke의 길이를 얻어올 수 있음 */
+            stroke-dasharray: 157, 157;
+            stroke-dashoffset: 0;
+            fill: transparent;
+            animation: loading-circle-ani 1s infinite;
+        }
+    }
+}
+
+
 // header
 header{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 10;
     .global-nav{
+        width: 100%;
         height: 44px;
         .global-nav-links{
             @include nav_layout;
+            justify-content: space-between;
         }
     }
     
     .local-nav{
+        width: 100%;
         height: 52px;
         border-bottom: 1px solid #ddd;
         .local-nav-links{
             @include nav_layout;
             .product-name{
                 margin-right: auto;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 font-weight: 600;
             }
             a:not(.product-name){
@@ -46,10 +96,18 @@ header{
     }
 }
 
+main {
+	/* iPhone 가로 스크롤 방지 */
+	overflow-x: hidden;
+}
+
 h1{
-    font-size: 4rem;
-    text-align: center;
-    margin-top: -10vh;
+    position: relative;
+	top: -10vh;
+	z-index: 5;
+	font-size: 4rem;
+	text-align: center;
+    padding-top: 50vh;
 }
 h2{
     font-weight: 600;
@@ -74,20 +132,21 @@ h3{
 
 
 .scroll-section{
-    padding-top: 50vh;
     .main-message{
         display: flex;
         align-items: center;
         justify-content: center;
         top: 35vh;
+        margin: 5px 0;
         height: 3em;
         font-size: 2.5rem;
+        opacity: 0;
     }
     .desc-message{
-        width: 50%;
+        width: 45%;
+        max-width: 500px;
         font-weight: 500;
-        top: 35vh;
-        left: 50%;
+        opacity: 0;
         .pin{
             width: 1px;
             height: 100px;
@@ -105,12 +164,31 @@ h3{
             color: $black;
         }
     }
-    // .image-blend-canvas{}
     .canvas-caption{
         @include con_layout;
+        margin: -24rem auto 0;
         font-size: 1.2rem;
         color: $gray;
     }
+    &#scroll-section-2 {
+        .desc-message .b {
+            top: 10%;
+            left: 40%;
+        }
+        .desc-message .c {
+            top: 15%;
+            left: 45%;
+        }
+    }
+    &#scroll-section-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.normal-content {
+	margin-bottom: 10rem;
 }
 
 footer{
@@ -118,6 +196,7 @@ footer{
     align-items: center;
     justify-content: center;
     height: 7rem;
+    color: white;
     background: darkorange;
 }
 
@@ -126,13 +205,15 @@ footer{
         font-size: 9vw;
     }
     h2{
+        font-size: 4vw;
         small{
             font-size: 1.5vw;
         }  
     }
     h3{
-        font-size: 4vw;
-        // strong{}
+        width: 1000px;
+		padding: 0;
+		font-size: 4vw;
     }
 
     .scroll-section{
@@ -143,15 +224,16 @@ footer{
             width: 20%;
         }
         .description{
+            padding: 0;
             font-size: 2rem;
             strong{
                 font-size: 6rem;
             }
         }
         .canvas-caption{
+            margin-top: -8rem;
+            padding: 0;
             font-size: 2rem;
         }
     }
-
-    // footer{}
 }

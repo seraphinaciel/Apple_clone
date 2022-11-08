@@ -1,29 +1,56 @@
-.scroll-section {
-  border: 3px solid red;
+@charset "UTF-8";
+body.local-nav-sticky .local-nav {
+  position: fixed;
+  top: 0;
+  background: rgba(255, 255, 255, 0.1);
+  /* for iPhone */
+  -webkit-backdrop-filter: saturate(180%) blur(15px);
+  -moz-backdrop-filter: saturate(180%) blur(15px);
+  -o-backdrop-filter: saturate(180%) blur(15px);
+  backdrop-filter: saturate(180%) blur(15px);
 }
-.scroll-section .sticky-elem {
+body.scroll-effect-end .sticky-elem {
+  /* 스크롤 효과가 모두 끝나고, 아래 일반 콘텐츠 영역에서는 sticky-elem들을 모두 안보이도록 */
+  display: none !important;
+}
+
+.scroll-section {
+  position: relative;
+  border: 13px solid red;
+}
+.scroll-section div {
+  display: none;
   position: fixed;
   left: 0;
   width: 100%;
-  opacity: 0;
 }
-.scroll-section .sticky-elem.sticky-elem-canvas {
+.scroll-section div.sticky-canvas {
   top: 0;
   height: 100%;
-  opacity: 1;
   z-index: -1;
 }
-.scroll-section .sticky-elem.sticky-elem-canvas canvas {
+.scroll-section div.sticky-canvas canvas {
   position: absolute;
   top: 50%;
   left: 50%;
 }
+.scroll-section .image-blend-canvas.sticky {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
 
-#show-scene-0 #scroll-section-0 .sticky-elem,
-#show-scene-1 #scroll-section-1 .sticky-elem,
-#show-scene-2 #scroll-section-2 .sticky-elem,
-#show-scene-3 #scroll-section-3 .sticky-elem {
+#show-scene-0 #scroll-section-0 div,
+#show-scene-1 #scroll-section-1 div,
+#show-scene-2 #scroll-section-2 div,
+#show-scene-3 #scroll-section-3 div {
   display: block;
+  will-change: transform, opacity;
+  /* 
+  브라우저한테 transform, opacity 변경 할 거라고 미리 알랴쥼(HINT)
+  너무 많은 요소에 주는 건 비추(아껴사용하거라, 성능개선 최후의 수단 - 과도한 메모리 사용)
+  스크립트 조작이 더 좋다고 함
+   */
 }
 
 *, *::before, *::after {
@@ -71,8 +98,87 @@ a {
   isolation: isolate;
 }
 
-.loading {
+.before-load {
+  overflow: hidden;
+}
+.before-load .loading {
+  opacity: 1;
+}
+.before-load main {
   display: none;
+}
+
+@-webkit-keyframes loading-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loading-circle-ani {
+  0% {
+    stroke-dashoffset: 157;
+  }
+  75% {
+    stroke-dashoffset: -147;
+  }
+  100% {
+    stroke-dashoffset: -157;
+  }
+}
+@keyframes loading-circle-ani {
+  0% {
+    stroke-dashoffset: 157;
+  }
+  75% {
+    stroke-dashoffset: -147;
+  }
+  100% {
+    stroke-dashoffset: -157;
+  }
+}
+.loading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background: white;
+  opacity: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.loading .loading-circle {
+  width: 54px;
+  height: 54px;
+  -webkit-animation: loading-spin 3s infinite;
+          animation: loading-spin 3s infinite;
+}
+.loading .loading-circle circle {
+  stroke: black;
+  stroke-width: 4;
+  /* js로 getTotalLength()로 stroke의 길이를 얻어올 수 있음 */
+  stroke-dasharray: 157, 157;
+  stroke-dashoffset: 0;
+  fill: transparent;
+  -webkit-animation: loading-circle-ani 1s infinite;
+          animation: loading-circle-ani 1s infinite;
 }
 
 header {
@@ -80,18 +186,16 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 10;
 }
 header .global-nav {
+  width: 100%;
   height: 44px;
 }
 header .global-nav .global-nav-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -99,8 +203,12 @@ header .global-nav .global-nav-links {
   height: 100%;
   margin: 0 auto;
   padding: 0 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 header .local-nav {
+  width: 100%;
   height: 52px;
   border-bottom: 1px solid #ddd;
 }
@@ -108,9 +216,6 @@ header .local-nav .local-nav-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -121,7 +226,7 @@ header .local-nav .local-nav-links {
 }
 header .local-nav .local-nav-links .product-name {
   margin-right: auto;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 header .local-nav .local-nav-links a:not(.product-name) {
@@ -129,10 +234,18 @@ header .local-nav .local-nav-links a:not(.product-name) {
   font-size: 0.8rem;
 }
 
+main {
+  /* iPhone 가로 스크롤 방지 */
+  overflow-x: hidden;
+}
+
 h1 {
+  position: relative;
+  top: -10vh;
+  z-index: 5;
   font-size: 4rem;
   text-align: center;
-  margin-top: -10vh;
+  padding-top: 50vh;
 }
 
 h2 {
@@ -159,9 +272,6 @@ h3 strong {
   color: rgb(29, 29, 31);
 }
 
-.scroll-section {
-  padding-top: 50vh;
-}
 .scroll-section .main-message {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -173,14 +283,16 @@ h3 strong {
       -ms-flex-pack: center;
           justify-content: center;
   top: 35vh;
+  margin: 5px 0;
   height: 3em;
   font-size: 2.5rem;
+  opacity: 0;
 }
 .scroll-section .desc-message {
-  width: 50%;
+  width: 45%;
+  max-width: 500px;
   font-weight: 500;
-  top: 35vh;
-  left: 50%;
+  opacity: 0;
 }
 .scroll-section .desc-message .pin {
   width: 1px;
@@ -204,8 +316,33 @@ h3 strong {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 1rem;
+  margin: -24rem auto 0;
   font-size: 1.2rem;
   color: #888;
+}
+.scroll-section#scroll-section-2 .desc-message .b {
+  top: 10%;
+  left: 40%;
+}
+.scroll-section#scroll-section-2 .desc-message .c {
+  top: 15%;
+  left: 45%;
+}
+.scroll-section#scroll-section-3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.normal-content {
+  margin-bottom: 10rem;
 }
 
 footer {
@@ -219,6 +356,7 @@ footer {
       -ms-flex-pack: center;
           justify-content: center;
   height: 7rem;
+  color: white;
   background: darkorange;
 }
 
@@ -226,10 +364,15 @@ footer {
   h1 {
     font-size: 9vw;
   }
+  h2 {
+    font-size: 4vw;
+  }
   h2 small {
     font-size: 1.5vw;
   }
   h3 {
+    width: 1000px;
+    padding: 0;
     font-size: 4vw;
   }
   .scroll-section.main-message {
@@ -239,12 +382,15 @@ footer {
     width: 20%;
   }
   .scroll-section .description {
+    padding: 0;
     font-size: 2rem;
   }
   .scroll-section .description strong {
     font-size: 6rem;
   }
   .scroll-section .canvas-caption {
+    margin-top: -8rem;
+    padding: 0;
     font-size: 2rem;
   }
 }
